@@ -1,0 +1,48 @@
+# ---- dependencies ----
+node_modules/
+.pnp
+.pnp.js
+
+# ---- build output ----
+dist/
+dist-ssr/
+build/
+.vite/
+
+# ---- env & secrets ----
+.env
+.env.*
+!.env.example
+*.local
+
+# ---- logs ----
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ---- editors ----
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ---- OS junk ----
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# ---- deploy ----
+.cache/
+.temp/
+
+# Note: src/assets/<id>/originals/ (full-size PNG masters) IS tracked on purpose.
+# Add it here if the repo gets too heavy — but keep a backup elsewhere first.

@@ -1,0 +1,98 @@
+{
+  "gech": {
+    "id": 12,
+    "name": "Gech",
+    "gender": "Female",
+    "age": 18,
+    "dob": "7/18/2008",
+    "like": "Food"
+  },
+  "lov-jingsing": {
+    "id": 7,
+    "name": "Lov Jingsing",
+    "gender": "Female",
+    "age": 18,
+    "dob": "5/29/2008",
+    "like": "Jake (Enhypen) n traveling "
+  },
+  "lyhorng-hong": {
+    "id": 2,
+    "name": "Lyhorng Hong",
+    "gender": "Female",
+    "age": 19,
+    "dob": "11/10/2006",
+    "like": "Sleep🤣"
+  },
+  "nak-nak": {
+    "id": 5,
+    "name": "Nak nak",
+    "gender": "Male",
+    "age": 20,
+    "dob": "7/3/2006",
+    "like": "Everything "
+  },
+  "nakamura-okuto": {
+    "id": 9,
+    "name": "Nakamura Okuto",
+    "gender": "Gay ",
+    "age": 22,
+    "dob": "1/21/2004",
+    "like": "I like yaoi "
+  },
+  "nolly": {
+    "id": 1,
+    "name": "Nolly",
+    "gender": "Female",
+    "age": 19,
+    "dob": "11/29/2006",
+    "like": "Ey kr bn😝"
+  },
+  "phon-yanaroth": {
+    "id": 3,
+    "name": "Phon Yanaroth",
+    "gender": "Female",
+    "age": 17,
+    "dob": "9/25/2008",
+    "like": "niche furniture and lamps"
+  },
+  "seuorn-sreyka": {
+    "id": 6,
+    "name": "Seuorn Sreyka",
+    "gender": "Female",
+    "age": 20,
+    "dob": "1/23/2006",
+    "like": "I like u"
+  },
+  "sokleap-lor": {
+    "id": 10,
+    "name": "Sokleap Lor",
+    "gender": "Female",
+    "age": 18,
+    "dob": "8/16/2007",
+    "like": "like culinary arts, cooking, learning new languages, and exploring creative hobbies like reading webtoons."
+  },
+  "tech": {
+    "id": 4,
+    "name": "Tech",
+    "gender": "Male",
+    "age": 19,
+    "dob": "3/27/2007",
+    "like": "I prefer hanging out, playing sport, eating sneaks and loving you "
+  },
+  "vimean": {
+    "id": 11,
+    "name": "Vimean",
+    "gender": "Female",
+    "age": 15,
+    "dob": "7/21/2011",
+    "like": "Hachiware"
+  },
+  "yong-chhay": {
+    "id": 8,
+    "name": "Yong Chhay",
+    "gender": "Animal",
+    "age": 19,
+    "dob": "12/15/2006",
+    "like": "Lamborghini "
+  }
+}

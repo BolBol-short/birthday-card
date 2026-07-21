@@ -1,0 +1,32 @@
+{
+  "chhun-lyhour": {
+    "id": 1,
+    "name": "Chhun Lyhour",
+    "age": 17,
+    "dob": "12/10/2008"
+  },
+  "lov-jingsing": {
+    "id": 2,
+    "name": "Lov Jingsing",
+    "age": 18,
+    "dob": "5/29/2008"
+  },
+  "phon-yanaroth": {
+    "id": 3,
+    "name": "Phon Yanaroth",
+    "age": 17,
+    "dob": "9/25/2008"
+  },
+  "seng-seilika": {
+    "id": 4,
+    "name": "Seng Seilika",
+    "age": 16,
+    "dob": "12/11/2009"
+  },
+  "ty-linda": {
+    "id": 5,
+    "name": "Ty Linda",
+    "age": 19,
+    "dob": "1/21/2007"
+  }
+}
