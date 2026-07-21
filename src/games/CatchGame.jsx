@@ -165,7 +165,7 @@ export default function CatchGame({
         {phase === 'playing' && (
           <div
             ref={catcherRef}
-            className="pointer-events-none absolute bottom-[26px] left-0 w-[clamp(90px,14vw,128px)]
+            className="pointer-events-none absolute bottom-6.5 left-0 w-[clamp(90px,14vw,128px)]
                        will-change-transform select-none"
           >
             <svg ref={mouthRef} viewBox="0 0 100 44" aria-hidden="true"
@@ -181,7 +181,7 @@ export default function CatchGame({
         )}
 
         {/* ground line */}
-        <div aria-hidden="true" className="absolute right-[10px] bottom-[14px] left-[10px] h-1 rounded-full"
+        <div aria-hidden="true" className="absolute right-2.5 bottom-3.5 left-2.5 h-1 rounded-full"
              style={{ background: 'repeating-linear-gradient(90deg, rgba(107,74,50,.55) 0 12px, transparent 12px 22px)' }} />
 
         {phase === 'intro' && (
@@ -211,12 +211,12 @@ export default function CatchGame({
         onPointerDown={onBarDown} onPointerMove={onBarMove}
         onPointerUp={onBarUp} onPointerCancel={onBarUp} onKeyDown={onKey}
         className="relative flex h-[clamp(24px,5vh,34px)] flex-none cursor-grab touch-none items-center
-                   px-[17px] select-none active:cursor-grabbing"
+                   px-4.25 select-none active:cursor-grabbing"
       >
-        <div className="h-[10px] w-full rounded-full border-2 border-hachi/35 bg-hachi/15" />
+        <div className="h-2.5 w-full rounded-full border-2 border-hachi/35 bg-hachi/15" />
         <div className="pointer-events-none absolute top-1/2 h-0 w-0 -translate-x-1/2 -translate-y-1/2"
              style={{ left: `${knob * 100}%` }}>
-          <span className="absolute top-1/2 left-1/2 h-[22px] w-[44px] -translate-x-1/2 -translate-y-1/2
+          <span className="absolute top-1/2 left-1/2 h-5.5 w-11 -translate-x-1/2 -translate-y-1/2
                            rounded-full border-[3px] border-cream shadow-md"
                 style={{ background: accent }} />
         </div>

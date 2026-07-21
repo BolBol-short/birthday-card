@@ -38,17 +38,17 @@ export default function Interactive({ open, title, accent = 'var(--color-hachi)'
           className="flex flex-none items-center gap-3 py-[clamp(.35rem,1.2vh,.6rem)] pr-[.7rem] pl-4 text-cream"
           style={{ background: accent }}
         >
-          <span aria-hidden="true" className="flex flex-none gap-[5px]">
-            <i className="h-[9px] w-[9px] rounded-full bg-white/55" />
-            <i className="h-[9px] w-[9px] rounded-full bg-white/55" />
-            <i className="h-[9px] w-[9px] rounded-full bg-white/55" />
+          <span aria-hidden="true" className="flex flex-none gap-1.25">
+            <i className="h-2.25 w-2.25 rounded-full bg-white/55" />
+            <i className="h-2.25 w-2.25 rounded-full bg-white/55" />
+            <i className="h-2.25 w-2.25 rounded-full bg-white/55" />
           </span>
           <h2 className="flex-1 text-center text-[clamp(13px,1.5vw,16px)] font-bold">{title}</h2>
           <button
             ref={closeRef}
             onClick={onClose}
             aria-label={`Close ${title}`}
-            className="grid h-[30px] w-[30px] flex-none place-items-center rounded-full
+            className="grid h-7.5 w-7.5 flex-none place-items-center rounded-full
                        text-cream transition hover:rotate-90 hover:bg-white/25"
           >
             <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
