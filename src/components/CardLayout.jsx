@@ -24,7 +24,7 @@ export default function CardLayout({ accent = 'var(--color-hachi)', scene, actio
         <Background accent={accent}>{scene}</Background>
 
         <div className="pointer-events-none relative z-3 grid h-full place-items-center
-                        p-[clamp(28px,6vw,80px)] *:pointer-events-auto">
+                        p-[clamp(28px,6vw,80px)] [&>*]:pointer-events-auto">
           {children}
         </div>
 

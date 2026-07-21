@@ -140,13 +140,18 @@ export default function CatchGame({
   }
 
   const won = score >= goodScore
-  const panel = 'absolute inset-0 z-5 grid place-content-center justify-items-center gap-2 ' +
-                'bg-cream/90 p-4 text-center backdrop-blur-[3px]'
-  const btn = 'mt-1 rounded-full px-[1.6em] py-[.68em] text-[clamp(12px,1.3vw,15px)] ' +
-              'font-bold text-cream transition hover:-translate-y-0.5 hover:brightness-110'
+  // sized off viewport HEIGHT so a landscape phone (~390px tall) still fits
+  const panel = 'absolute inset-0 z-5 flex flex-col items-center justify-center ' +
+                'gap-[clamp(1px,.8vh,10px)] overflow-auto bg-cream/90 ' +
+                'px-3 py-[clamp(4px,1.5vh,16px)] text-center backdrop-blur-[3px]'
+  const face = 'h-auto w-[clamp(44px,12vh,132px)] shrink-0 animate-bob'
+  const lead = 'max-w-[30ch] text-[clamp(10px,2vh,16px)] font-bold text-ink'
+  const btn = 'mt-[clamp(1px,.8vh,6px)] shrink-0 rounded-full px-[1.4em] py-[.5em] ' +
+              'text-[clamp(11px,1.9vh,15px)] font-bold text-cream transition ' +
+              'hover:-translate-y-0.5 hover:brightness-110'
 
   return (
-    <div className="flex h-[min(58vh,400px)] flex-col gap-[.55rem]">
+    <div className="flex h-[clamp(180px,54vh,380px)] flex-col gap-[.4rem]">
       <div className="flex flex-none items-center justify-between text-[clamp(11px,1.2vw,13px)] font-bold text-ink/75">
         <span>{t.hud}</span>
         <span className="tabular-nums">caught <b className="text-hachi">{score}</b></span>
@@ -160,7 +165,7 @@ export default function CatchGame({
         {phase === 'playing' && (
           <div
             ref={catcherRef}
-            className="pointer-events-none absolute bottom-6.5 left-0 w-[clamp(90px,14vw,128px)]
+            className="pointer-events-none absolute bottom-[26px] left-0 w-[clamp(90px,14vw,128px)]
                        will-change-transform select-none"
           >
             <svg ref={mouthRef} viewBox="0 0 100 44" aria-hidden="true"
@@ -176,23 +181,23 @@ export default function CatchGame({
         )}
 
         {/* ground line */}
-        <div aria-hidden="true" className="absolute right-2.5 bottom-3.5 left-2.5 h-1 rounded-full"
+        <div aria-hidden="true" className="absolute right-[10px] bottom-[14px] left-[10px] h-1 rounded-full"
              style={{ background: 'repeating-linear-gradient(90deg, rgba(107,74,50,.55) 0 12px, transparent 12px 22px)' }} />
 
         {phase === 'intro' && (
           <div className={panel}>
-            <img src={art.start} alt="" className="h-auto w-[clamp(88px,15vw,132px)] animate-bob" />
-            <p className="max-w-[26ch] text-[clamp(13px,1.5vw,16px)] font-bold text-ink">{t.intro}</p>
-            <p className="text-[clamp(11px,1.2vw,13px)] font-medium text-ink/60">{t.hint}</p>
+            <img src={art.start} alt="" className={face} />
+            <p className={lead}>{t.intro}</p>
+            <p className="max-w-[34ch] text-[clamp(9px,1.6vh,13px)] font-medium text-ink/60">{t.hint}</p>
             <button className={btn} style={{ background: accent }} onClick={start}>{t.start}</button>
           </div>
         )}
 
         {phase === 'over' && (
           <div className={panel}>
-            <img src={won ? art.win : art.lose} alt="" className="h-auto w-[clamp(88px,15vw,132px)] animate-bob" />
-            <p className="text-[clamp(22px,3.4vw,34px)] font-extrabold text-hachi">{score} caught</p>
-            <p className="max-w-[26ch] text-[clamp(13px,1.5vw,16px)] font-bold text-ink">{won ? t.win : t.lose}</p>
+            <img src={won ? art.win : art.lose} alt="" className={face} />
+            <p className="text-[clamp(15px,3.4vh,34px)] font-extrabold text-hachi">{score} caught</p>
+            <p className={lead}>{won ? t.win : t.lose}</p>
             <button className={btn} style={{ background: accent }} onClick={start}>{t.retry}</button>
           </div>
         )}
@@ -205,13 +210,13 @@ export default function CatchGame({
         aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(knob * 100)}
         onPointerDown={onBarDown} onPointerMove={onBarMove}
         onPointerUp={onBarUp} onPointerCancel={onBarUp} onKeyDown={onKey}
-        className="relative flex h-8.5 flex-none cursor-grab touch-none items-center
-                   px-4.25 select-none active:cursor-grabbing"
+        className="relative flex h-[clamp(24px,5vh,34px)] flex-none cursor-grab touch-none items-center
+                   px-[17px] select-none active:cursor-grabbing"
       >
-        <div className="h-2.5 w-full rounded-full border-2 border-hachi/35 bg-hachi/15" />
+        <div className="h-[10px] w-full rounded-full border-2 border-hachi/35 bg-hachi/15" />
         <div className="pointer-events-none absolute top-1/2 h-0 w-0 -translate-x-1/2 -translate-y-1/2"
              style={{ left: `${knob * 100}%` }}>
-          <span className="absolute top-1/2 left-1/2 h-5.5 w-11 -translate-x-1/2 -translate-y-1/2
+          <span className="absolute top-1/2 left-1/2 h-[22px] w-[44px] -translate-x-1/2 -translate-y-1/2
                            rounded-full border-[3px] border-cream shadow-md"
                 style={{ background: accent }} />
         </div>

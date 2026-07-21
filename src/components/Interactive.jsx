@@ -20,14 +20,14 @@ export default function Interactive({ open, title, accent = 'var(--color-hachi)'
   return (
     <div
       className="fixed inset-0 z-100 grid place-items-center bg-[rgba(18,34,46,.58)]
-                 p-[clamp(12px,3vw,40px)] backdrop-blur-md animate-fade"
+                 p-[clamp(8px,3vw,40px)] backdrop-blur-md animate-fade"
       onMouseDown={(e) => { if (e.target === e.currentTarget) onClose() }}
     >
       <div
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="flex max-h-[min(84vh,580px)] w-[min(680px,100%)] flex-col overflow-hidden
+        className="flex max-h-[min(90vh,580px)] w-[min(680px,100%)] flex-col overflow-hidden
                    rounded-[22px] border-[3px] bg-cream animate-pop"
         style={{
           borderColor: accent,
@@ -35,7 +35,7 @@ export default function Interactive({ open, title, accent = 'var(--color-hachi)'
         }}
       >
         <header
-          className="flex flex-none items-center gap-3 py-[.6rem] pr-[.7rem] pl-4 text-cream"
+          className="flex flex-none items-center gap-3 py-[clamp(.35rem,1.2vh,.6rem)] pr-[.7rem] pl-4 text-cream"
           style={{ background: accent }}
         >
           <span aria-hidden="true" className="flex flex-none gap-[5px]">
@@ -58,7 +58,7 @@ export default function Interactive({ open, title, accent = 'var(--color-hachi)'
           </button>
         </header>
 
-        <div className="min-h-0 flex-1 overflow-auto p-[clamp(16px,2.6vw,30px)] text-ink">
+        <div className="min-h-0 flex-1 overflow-auto p-[clamp(12px,2.6vw,30px)] text-ink">
           {children}
         </div>
       </div>

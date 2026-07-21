@@ -1,29 +1,32 @@
 import art from '../../assets/11'
 
 /**
- * The note. Layout is [ text | picture ].
+ * The note. [ text | picture ] on roomy screens; stacks on small ones.
+ * The window body scrolls, so a long message is fine.
+ *
  * ▼▼ Replace the title and paragraphs with your own words. ▼▼
  */
 export default function Message() {
+  const para = 'mb-3 text-[clamp(12px,2vh,16px)] font-medium leading-[1.7] text-ink'
+
   return (
-    <div className="grid grid-cols-[1fr_auto] items-center gap-[clamp(14px,2.4vw,28px)]
-                    max-[900px]:grid-cols-1">
-      <div>
-        <h3 className="mb-2 text-[clamp(17px,2.2vw,24px)] font-extrabold text-hachi">
-          Happy birthday, you fart smella
+    <div className="flex flex-col-reverse items-center gap-4
+                    min-[680px]:grid min-[680px]:grid-cols-[1fr_auto]
+                    min-[680px]:items-center min-[680px]:gap-[clamp(14px,2.4vw,28px)]">
+      <div className="min-w-0">
+        <h3 className="mb-2 text-[clamp(15px,3vh,24px)] font-extrabold text-hachi">
+          Happy birthday
         </h3>
-        <p className="mb-3 text-[clamp(13px,1.45vw,16px)] font-medium leading-[1.75] text-ink">
-          Placeholder — write your own message here.
-        </p>
-        <p className="mb-3 text-[clamp(13px,1.45vw,16px)] font-medium leading-[1.75] text-ink">
+        <p className={para}>Placeholder — write your own message here.</p>
+        <p className={para}>
           Say the thing you'd say out loud: the running joke, the day you both
           still bring up, the thing you're glad they do.
         </p>
-        <p className="text-[clamp(13px,1.45vw,16px)] font-bold text-hachi">— from me</p>
+        <p className="text-[clamp(12px,2vh,16px)] font-bold text-hachi">— from me</p>
       </div>
 
-      <figure className="w-[clamp(112px,17vw,186px)] flex-none overflow-hidden rounded-2xl
-                         border-[3px] border-hachi shadow-lg max-[900px]:hidden">
+      <figure className="w-[clamp(88px,18vh,186px)] shrink-0 overflow-hidden rounded-2xl
+                         border-[3px] border-hachi shadow-lg">
         <img src={art.field} alt="" className="h-auto w-full" />
       </figure>
     </div>
