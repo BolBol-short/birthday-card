@@ -31,9 +31,8 @@ export default function CardLayout({ accent = 'var(--color-hachi)', scene, actio
         {actions.length > 0 && (
           <ButtonDock>
             {actions.map((a, i) => (
-              <Button key={a.label} icon={a.icon} accent={accent} onClick={() => setOpenIndex(i)}>
-                {a.label}
-              </Button>
+              <Button key={a.label} icon={a.icon} label={a.label} accent={accent}
+              onClick={() => setOpenIndex(i)}/>
             ))}
           </ButtonDock>
         )}
