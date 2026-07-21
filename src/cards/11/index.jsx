@@ -6,8 +6,8 @@ import art from '../../assets/11'
 
 export default function Card({ person }) {
   const actions = [
-    { label: 'Message', icon: '✉', title: 'A message for you', content: <Message person={person} /> },
-    { label: 'Play',    icon: '✦', title: 'Catch the treats',  content: <Activity /> },
+    { label: 'Message', icon: <i className='bi bi-envelope' />, title: 'A message for you', content: <Message person={person} /> },
+    { label: 'Play',    icon: <i className='bi bi-controller'/>, title: 'Catch the treats',  content: <Activity /> },
   ]
 
   return (

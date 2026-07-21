@@ -5,7 +5,7 @@ activity. Static site, hosted free on GitHub Pages.
 
 ```
 https://<user>.github.io/Birthday-Card-Website/#/11        ← by person id
-https://<user>.github.io/Birthday-Card-Website/#/vimean    ← slug also works
+https://<user>.github.io/Birthday-Card-Website/#/a    ← slug also works
 ```
 
 Hash routing is deliberate: GitHub Pages serves static files only, so `/11`
