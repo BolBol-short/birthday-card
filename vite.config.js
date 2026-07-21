@@ -5,5 +5,5 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   // must match the GitHub repo name exactly, or assets 404 on Pages
-  base: '/Birthday-Card-Website/',
+  base: process.env.VERCEL ? '/' : '/Birthday-Card-Website/',
 })

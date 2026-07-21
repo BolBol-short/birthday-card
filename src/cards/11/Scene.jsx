@@ -14,10 +14,10 @@ export default function Scene() {
                       rounded-full animate-breathe"
            style={{ background: 'radial-gradient(circle, rgba(255,253,247,.85) 0%, rgba(255,253,247,0) 68%)' }} />
 
-      <div className={`${cloud} h-[54px] w-[190px] top-[15%] -left-[14%] opacity-95 [animation-duration:62s]`} />
-      <div className={`${cloud} h-[40px] w-[128px] top-[30%] -left-[10%] opacity-80 [animation-duration:84s] [animation-delay:9s]`} />
-      <div className={`${cloud} h-[62px] w-[232px] top-[52%] -left-[18%] opacity-70 [animation-duration:104s] [animation-delay:4s]`} />
-      <div className={`${cloud} h-[34px] w-[104px] top-[8%]  -left-[8%]  opacity-85 [animation-duration:74s] [animation-delay:22s]`} />
+      <div className={`${cloud} h-13.5 w-47.5 top-[15%] left-[-14%] opacity-95 [animation-duration:62s]`} />
+      <div className={`${cloud} h-10 w-32 top-[30%] left-[-10%] opacity-80 [animation-duration:84s] [animation-delay:9s]`} />
+      <div className={`${cloud} h-15.5 w-58 top-[52%] left-[-18%] opacity-70 [animation-duration:104s] [animation-delay:4s]`} />
+      <div className={`${cloud} h-8.5 w-26 top-[8%]  left-[-8%]  opacity-85 [animation-duration:74s] [animation-delay:22s]`} />
 
       {spots.map(([x, y], i) => (
         <svg key={i} viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"
@@ -29,7 +29,7 @@ export default function Scene() {
 
       <div className="absolute bottom-0 left-1/2 h-[26%] w-[150%] -translate-x-1/2
                       rounded-t-[50%] bg-hill-back opacity-85" />
-      <div className="absolute -bottom-[4%] left-1/2 h-[22%] w-[190%] -translate-x-1/2
+      <div className="absolute bottom-[-4%] left-1/2 h-[22%] w-[190%] -translate-x-1/2
                       rounded-t-[50%] bg-hill-front" />
     </div>
   )
