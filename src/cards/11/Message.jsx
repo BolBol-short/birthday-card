@@ -15,14 +15,23 @@ export default function Message() {
                     min-[680px]:items-center min-[680px]:gap-[clamp(14px,2.4vw,28px)]">
       <div className="min-w-0">
         <h3 className="mb-2 text-[clamp(15px,3vh,24px)] font-extrabold text-hachi">
-          Happy birthday
+          Happy birthday, you fart smella
         </h3>
-        <p className={para}>Placeholder — write your own message here.</p>
         <p className={para}>
-          Say the thing you'd say out loud: the running joke, the day you both
-          still bring up, the thing you're glad they do.
+          Unc fart smella, you just turned 15 years old! Damm you old asf. 👵
         </p>
-        <p className="text-[clamp(12px,2vh,16px)] font-bold text-hachi">— from me</p>
+        <p className={para}>
+          Anyways, Happy birthday to ya. Mom and Dad are proud of ya
+          always love ya. No matter what happens, mom and dad, and I will love, you fart smella.
+          Stay strong and wish ya a good day fr, fr. 🔥🔥🔥
+        </p>
+        <p className={para}>
+          Also, wishes ya a good time, good day, good month, and good year. 
+          Wish ya do great in highschool and get rich, you fart smella! 🤑
+
+          Note: Sorry, if this is lackluster. Since I have to prepared fast, you stinky fart.
+        </p>
+        <p className="text-[clamp(12px,2vh,16px)] font-bold text-hachi">— from your favorite, fat little chud</p>
       </div>
 
       <figure className="w-[clamp(88px,18vh,186px)] shrink-0 overflow-hidden rounded-2xl

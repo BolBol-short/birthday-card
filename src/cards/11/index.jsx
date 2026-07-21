@@ -12,7 +12,7 @@ export default function Card({ person }) {
 
   return (
     <CardLayout scene={<Scene />} actions={actions}>
-      <div className="flex max-w-[1100px] items-center gap-[clamp(20px,5vw,70px)]">
+      <div className="flex max-w-275 items-center gap-[clamp(20px,5vw,70px)]">
         <img
           src={art.hero}
           alt=""

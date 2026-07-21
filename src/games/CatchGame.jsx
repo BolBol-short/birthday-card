@@ -171,7 +171,7 @@ export default function CatchGame({
             <svg ref={mouthRef} viewBox="0 0 100 44" aria-hidden="true"
                  className="relative z-2 block h-auto w-full"
                  style={{ color: basketColor, filter: 'drop-shadow(0 2px 0 rgba(255,253,247,.8))' }}>
-              <path d="M5 4 L21 39 L79 39 L95 4" fill="none" stroke="currentColor"
+              <path d="M14 39 L86 39" fill="none" stroke="currentColor"
                     strokeWidth="6" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             <img src={art.catcher} alt="" draggable="false"
