@@ -3,15 +3,17 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 /**
  * CookingGame — reusable, person-agnostic kitchen game.
  *
- * Loop: a customer arrives with an order (one of `recipes`). Tap ingredients
- * to stack them on the plate. Drag the finished plate onto the customer.
- * Correct dish (ingredient multiset matches the recipe, tap order ignored) =>
- * +1 and the next customer. Wrong => the plate shakes and clears.
+ * Loop: a customer arrives with an order (one of `recipes`). The order ticket
+ * shows the ingredients needed. Tap them onto the plate (each ticks off with a
+ * ✓), press Cook to validate into a finished dish, then drag the dish onto the
+ * customer to serve.
+ *
+ * Correct dish (ingredient multiset matches, tap order ignored) => +1 and the
+ * next customer. A wrong Cook shakes and clears the plate to retry.
  *
  * Lose pressure: each customer has a patience bar that drains; if it empties
- * they leave unserved (no point). An overall `duration`-second timer runs the
- * whole round. Win = reach `goodScore` before the timer ends. Lose = timer
- * hits 0 first.
+ * they leave unserved. An overall `duration`-second timer runs the whole round.
+ * Win = reach `goodScore` before the timer ends. Lose = timer hits 0 first.
  *
  * Nothing here knows about any specific person — all art and data come in as
  * props, exactly like CatchGame is cast from a card's Activity.jsx.
@@ -50,6 +52,7 @@ export default function CookingGame({
   const [patience, setPatience] = useState(100)
   const [shake, setShake] = useState(false)
   const [dragging, setDragging] = useState(false)
+  const [cooked, setCooked] = useState(false)  // plate validated into the finished dish
   const [served, setServed] = useState(false)  // brief "happy" beat between customers
 
   const plateRef = useRef(null)
@@ -65,6 +68,7 @@ export default function CookingGame({
     setScore(0)
     setTimeLeft(duration)
     setPlate([])
+    setCooked(false)
     setCustomerIdx(0)
     setPatience(100)
     setServed(false)
@@ -74,6 +78,7 @@ export default function CookingGame({
 
   const nextCustomer = useCallback(() => {
     setPlate([])
+    setCooked(false)
     setPatience(100)
     setServed(false)
     setCustomerIdx(i => (customerSvgs.length ? (i + 1) % customerSvgs.length : 0))
@@ -92,7 +97,7 @@ export default function CookingGame({
   useEffect(() => {
     if (phase !== 'play' || served) return
     if (patience <= 0) { nextCustomer(); return }
-    const t = setTimeout(() => setPatience(p => Math.max(0, p - 2)), 120)
+    const t = setTimeout(() => setPatience(p => Math.max(0, p - 2)), 240)
     return () => clearTimeout(t)
   }, [phase, patience, served, nextCustomer])
 
@@ -103,10 +108,10 @@ export default function CookingGame({
 
   /* ----- interactions ----- */
   const addIngredient = (id) => {
-    if (phase !== 'play' || served) return
+    if (phase !== 'play' || served || cooked) return
     setPlate(p => [...p, id])
   }
-  const clearPlate = () => setPlate([])
+  const clearPlate = () => { if (!cooked) setPlate([]) }
 
   const multisetEqual = (a, b) => {
     if (a.length !== b.length) return false
@@ -119,21 +124,28 @@ export default function CookingGame({
     return true
   }
 
-  const tryServe = () => {
-    if (!order) return
+  // Press Cook: validate the plate against the order. Match => finished dish
+  // ready to serve. Miss => shake and clear so they can retry.
+  const cook = () => {
+    if (phase !== 'play' || served || cooked || !order) return
     if (plate.length && multisetEqual(plate, order.needs)) {
-      setServed(true)
-      setScore(s => s + 1)
-      setTimeout(nextCustomer, 650) // let the happy beat show
+      setCooked(true)
     } else {
       setShake(true)
       setTimeout(() => { setShake(false); setPlate([]) }, 380)
     }
   }
 
-  /* Drag the plate onto the customer. Pointer events cover mouse + touch. */
+  const tryServe = () => {
+    if (!cooked || !order) return  // only a finished dish can be served
+    setServed(true)
+    setScore(s => s + 1)
+    setTimeout(nextCustomer, 650) // let the happy beat show
+  }
+
+  /* Drag the finished dish onto the customer. Pointer events cover mouse + touch. */
   const onPlateDown = (e) => {
-    if (phase !== 'play' || served) return
+    if (phase !== 'play' || served || !cooked) return
     setDragging(true)
     e.currentTarget.setPointerCapture?.(e.pointerId)
   }
@@ -146,7 +158,7 @@ export default function CookingGame({
       const hit = x >= cust.left && x <= cust.right && y >= cust.top && y <= cust.bottom
       if (hit) { tryServe(); return }
     }
-    // dropped anywhere else — no-op, plate stays as built
+    // dropped anywhere else — no-op, the finished dish stays put
   }
 
   const Ingredient = ({ id }) => {
@@ -156,9 +168,22 @@ export default function CookingGame({
     return <S />
   }
 
+  const DishArt = () => {
+    if (!order?.Svg) return null
+    const S = order.Svg
+    return <S />
+  }
+
   const CustomerArt = () => {
     const S = customerSvgs[customerIdx]
     return S ? <S /> : null
+  }
+
+  // How many of each still needed, so the ticket can tick off what's on the plate.
+  const remainingCount = (id) => {
+    const need = (order?.needs ?? []).filter(n => n === id).length
+    const have = plate.filter(p => p === id).length
+    return Math.max(0, need - have)
   }
 
   /* ---------- start / end screens ---------- */
@@ -180,8 +205,8 @@ export default function CookingGame({
         )}
         {phase === 'start' && (
           <p className="max-w-md text-[clamp(12px,2vh,15px)] leading-relaxed text-ink/70">
-            Read the order, tap the ingredients onto the plate, then drag the plate
-            to the customer. Keep them happy before the clock runs out.
+            Read the ticket, tap the ingredients it shows, press Cook, then drag
+            the finished dish to the customer before the clock runs out.
           </p>
         )}
         <button
@@ -207,13 +232,31 @@ export default function CookingGame({
 
       {/* main play area: customer (left) + counter (right) */}
       <div className="grid min-h-0 flex-1 grid-cols-[minmax(90px,1fr)_1.4fr] gap-2">
-        {/* customer with order + patience */}
+        {/* customer with order ticket + patience */}
         <div className="flex min-h-0 flex-col items-center justify-end gap-2">
           <div className="rounded-2xl border-2 bg-cream/90 px-3 py-1.5 shadow"
                style={{ borderColor: accent }}>
             <span className="text-[clamp(11px,1.8vh,15px)] font-bold text-ink">
               {served ? 'Thank you! 🎉' : `${L.order} ${order?.label ?? ''}`}
             </span>
+            {!served && order && (
+              <div className="mt-1 flex flex-wrap items-center justify-center gap-1">
+                {order.needs.map((id, i) => {
+                  const done = remainingCount(id) === 0
+                  return (
+                    <span key={i}
+                      className={`relative h-[clamp(20px,3.6vh,30px)] w-[clamp(20px,3.6vh,30px)]
+                                  rounded-md p-0.5 transition ${done ? 'bg-[#5BA887]/25' : 'bg-ink/5'}`}>
+                      <Ingredient id={id} />
+                      {done && (
+                        <span className="absolute -right-1 -top-1 grid h-3.5 w-3.5 place-items-center
+                                         rounded-full bg-[#5BA887] text-[9px] font-bold text-cream">✓</span>
+                      )}
+                    </span>
+                  )
+                })}
+              </div>
+            )}
           </div>
           <div
             ref={customerRef}
@@ -230,17 +273,27 @@ export default function CookingGame({
 
         {/* plate + build zone */}
         <div className="flex min-h-0 flex-col items-center justify-end gap-2">
-          {/* the draggable plate */}
+          {/* the plate — holds ingredients while building, the finished dish once cooked */}
           <div
             ref={plateRef}
             onPointerDown={onPlateDown}
             onPointerUp={onPlateUp}
             className={`relative flex min-h-[clamp(70px,16vh,140px)] w-[clamp(120px,90%,240px)]
-                        cursor-grab items-center justify-center rounded-full border-2 bg-cream/95
-                        shadow-inner active:cursor-grabbing ${shake ? 'animate-shake' : ''}`}
+                        items-center justify-center rounded-full border-2 bg-cream/95
+                        shadow-inner ${cooked ? 'cursor-grab active:cursor-grabbing' : ''}
+                        ${shake ? 'animate-shake' : ''}`}
             style={{ borderColor: accent, touchAction: 'none' }}
           >
-            {plate.length === 0 ? (
+            {cooked ? (
+              <div className="flex flex-col items-center">
+                <span className="h-[clamp(48px,11vh,90px)] w-[clamp(48px,11vh,90px)]">
+                  <DishArt />
+                </span>
+                <span className="text-[clamp(9px,1.5vh,12px)] font-bold" style={{ color: accent }}>
+                  drag to customer →
+                </span>
+              </div>
+            ) : plate.length === 0 ? (
               <span className="text-[clamp(10px,1.8vh,13px)] font-semibold text-ink/40">
                 tap ingredients →
               </span>
@@ -254,14 +307,26 @@ export default function CookingGame({
               </div>
             )}
           </div>
-          <button
-            onClick={clearPlate}
-            className="rounded-full border-2 px-3 py-0.5 text-[clamp(10px,1.7vh,13px)] font-bold text-ink/70
-                       transition active:scale-95"
-            style={{ borderColor: accent }}
-          >
-            Clear
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={clearPlate}
+              disabled={cooked}
+              className="rounded-full border-2 px-3 py-0.5 text-[clamp(10px,1.7vh,13px)] font-bold text-ink/70
+                         transition active:scale-95 disabled:opacity-40"
+              style={{ borderColor: accent }}
+            >
+              Clear
+            </button>
+            <button
+              onClick={cook}
+              disabled={cooked || plate.length === 0}
+              className="rounded-full px-4 py-0.5 text-[clamp(10px,1.7vh,13px)] font-bold text-cream
+                         shadow transition active:scale-95 disabled:opacity-40"
+              style={{ background: accent }}
+            >
+              Cook
+            </button>
+          </div>
         </div>
       </div>
 

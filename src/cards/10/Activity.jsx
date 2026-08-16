@@ -20,15 +20,15 @@ export default function Activity() {
   ]
 
   const recipes = [
-    { id: 'burger', label: 'Burger', needs: ['bun', 'patty', 'lettuce'],    Svg: BurgerSvg },
+    { id: 'burger', label: 'Burger', needs: ['bun', 'patty', 'lettuce'],       Svg: BurgerSvg },
     { id: 'salad',  label: 'Salad',  needs: ['lettuce', 'tomato', 'cucumber'], Svg: SaladSvg },
-    { id: 'ramen',  label: 'Ramen',  needs: ['noodles', 'egg', 'nori'],     Svg: RamenSvg },
+    { id: 'ramen',  label: 'Ramen',  needs: ['noodles', 'egg', 'nori'],        Svg: RamenSvg },
   ]
 
   return (
     <CookingGame
       accent={ACCENT}
-      duration={60}
+      duration={90}
       goodScore={3}
       ingredients={ingredients}
       recipes={recipes}
