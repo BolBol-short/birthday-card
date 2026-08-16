@@ -6,9 +6,6 @@
  * scene chef and customers are larger set-pieces. Colors are literal here
  * (not theme tokens) so the art reads the same wherever it's mounted — the
  * per-card ACCENT below is the one knob the card passes around.
- *
- * Palette kept deliberately small and food-real: warm plate cream, leaf green,
- * tomato red, toasted bun, noodle wheat, nori charcoal.
  */
 
 export const ACCENT = '#E8623A' // warm tomato-clay — this card's accent
@@ -146,13 +143,12 @@ export const RamenSvg = () => (
   </Tile>
 )
 
-/* ---------- customers (set-pieces) ---------- */
+/* ---------- customers (set-pieces, no neck) ---------- */
 
 const Customer = ({ skin, hair, shirt, label }) => (
   <svg viewBox="0 0 80 100" role="img" aria-label={label}
        xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
-    <path d="M20 100 Q20 66 40 66 Q60 66 60 100 Z" fill={shirt} />
-    <rect x="30" y="56" width="20" height="16" rx="7" fill={skin} />
+    <path d="M20 100 Q20 62 40 62 Q60 62 60 100 Z" fill={shirt} />
     <circle cx="40" cy="42" r="18" fill={skin} />
     <path d="M22 40 Q22 20 40 20 Q58 20 58 40 Q58 30 40 28 Q22 30 22 40 Z" fill={hair} />
     <circle cx="33" cy="43" r="2.4" fill="#2B2B2B" />
@@ -168,14 +164,13 @@ export const Customer1 = () => <Customer skin="#F2C9A0" hair="#3A2A20" shirt="#4
 export const Customer2 = () => <Customer skin="#E7B48A" hair="#6B4A2A" shirt="#C0693F" label="Customer" />
 export const Customer3 = () => <Customer skin="#F4D2B0" hair="#25201C" shirt="#5BA887" label="Customer" />
 
-/* ---------- hero (used on the card front) ---------- */
+/* ---------- hero (used on the card front, no neck) ---------- */
 
 export const HeroChef = () => (
   <svg viewBox="0 0 120 140" role="img" aria-label="Chef"
        xmlns="http://www.w3.org/2000/svg" className="h-full w-full">
     <path d="M34 140 Q34 84 60 84 Q86 84 86 140 Z" fill="#FCFCF4" />
     <path d="M46 96 L60 108 L74 96 L74 120 L46 120 Z" fill={ACCENT} opacity=".9" />
-    <rect x="48" y="72" width="24" height="20" rx="9" fill="#F2C9A0" />
     <circle cx="60" cy="56" r="24" fill="#F2C9A0" />
     <circle cx="51" cy="55" r="3" fill="#2B2B2B" />
     <circle cx="69" cy="55" r="3" fill="#2B2B2B" />
