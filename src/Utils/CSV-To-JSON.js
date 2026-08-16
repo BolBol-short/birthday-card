@@ -15,11 +15,6 @@ function ReadandGetData(path){
     return fs.readFileSync(path, 'utf8')
 }
 
-function getUserId(){
-    let id = 1
-    return () => id++
-}
-
 function getAge(dobString){
     if(!dobString) return 0
 
@@ -43,41 +38,38 @@ function getName(name){
 }
 
 function validUser(row){
-    return row.Name && row['Valid?'] === 'Yes'
-}
-
-function sortUsersByCharacter(data){
-    return data.filter(validUser).sort((a, b) => {
-        const nA = a.Name.trim().toLowerCase()
-        const nB = b.Name.trim().toLowerCase()
-        return nA.localeCompare(nB)
-    })
+    // Optional chaining guards against a row where Name is present but the
+    // Valid? column is missing/undefined (would otherwise crash on .toLowerCase()).
+    return row.Name && row['Valid?']?.toLowerCase() === 'yes'
 }
 
 function CreateFormattedJSON(data){
     const parsedData = Papa.parse(data, {header: true}).data
 
-    // Assign ids in SUBMISSION order (original CSV row order) so that adding a
-    // new person later never renumbers anyone. Sorting is only for output order.
-    const nextId = getUserId()
-    const idBySlug = {}
-    parsedData.filter(validUser).forEach(r => {
-        idBySlug[getName(r.Name.trim())] = nextId()
-    })
-
-    const sortedData = sortUsersByCharacter(parsedData)
+    // Assign ids in CSV ROW ORDER (top to bottom). First valid row is id 1,
+    // next is id 2, and so on. Appending at the bottom is safe; reordering or
+    // deleting a row above someone will shift every id below it.
+    const validRows = parsedData.filter(validUser)
     const formattedJSON = {}
+    const seen = new Set()
+    let id = 0
 
-    sortedData.forEach(r => {
-        const cleanName = r.Name.trim()
-        const id = getName(cleanName)
-        const age = getAge(r['Date of Birth'])
+    validRows.forEach(r => {
+        const slug = getName(r.Name.trim())
 
-        formattedJSON[id] = {
-            id: idBySlug[id],
-            name: cleanName,
+        // Guard: two rows slugify to the same slug -> collision. Warn, keep the first.
+        if (seen.has(slug)) {
+            console.warn(`Duplicate slug "${slug}" (from "${r.Name.trim()}") — skipping the later row.`)
+            return
+        }
+        seen.add(slug)
+
+        id++   // only incremented for kept rows, so skipped duplicates leave no gaps
+        formattedJSON[slug] = {
+            id: id,
+            name: r.Name.trim(),
             gender: r.Gender,
-            age: age,
+            age: getAge(r['Date of Birth']),
             dob: r['Date of Birth'],
             like: r['Like?']
         }
