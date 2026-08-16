@@ -1,3 +1,4 @@
+import Card10 from './10'
 import Card11 from './11'
 import DefaultCard from './DefaultCard'
 
@@ -12,7 +13,8 @@ import DefaultCard from './DefaultCard'
  * Anyone not registered still gets a working DefaultCard.
  */
 export const cardRegistry = {
-  11: Card11,   // vimean
+  10: Card10,
+  11: Card11,
 }
 
 export const getCard = (id) => cardRegistry[id] ?? DefaultCard

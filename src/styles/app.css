@@ -34,6 +34,7 @@
   --animate-rise:    rise .8s cubic-bezier(.22,.61,.36,1) forwards;
   --animate-settle:  settle .9s cubic-bezier(.22,.61,.36,1) forwards;
   --animate-fadein:  fadein .8s cubic-bezier(.22,.61,.36,1) forwards;
+  --animate-shake:   shake .38s ease;
 }
 
 @keyframes drift   { to { transform: translateX(135vw); } }
@@ -75,6 +76,11 @@
 @keyframes settle {
   from { opacity: 0; transform: translate(var(--dx), var(--dy)); }
   to   { opacity: .9; transform: none; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(-6px); }
+  75%      { transform: translateX(6px); }
 }
 
 /* ============================================================

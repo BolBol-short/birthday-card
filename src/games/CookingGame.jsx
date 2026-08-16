@@ -156,12 +156,6 @@ export default function CookingGame({
     return <S />
   }
 
-  const OrderDish = () => {
-    if (!order?.Svg) return null
-    const S = order.Svg
-    return <S />
-  }
-
   const CustomerArt = () => {
     const S = customerSvgs[customerIdx]
     return S ? <S /> : null
@@ -172,7 +166,7 @@ export default function CookingGame({
     const isWin = phase === 'win'
     const isLose = phase === 'lose'
     return (
-      <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-4 text-center">
+      <div className="flex h-[clamp(200px,58vh,400px)] flex-col items-center justify-center gap-4 p-4 text-center">
         <div className="w-[clamp(120px,22vh,190px)]">
           {isWin || isLose ? <OrderDishFallback recipes={recipes} won={isWin} /> : <CustomerArt />}
         </div>
@@ -204,7 +198,7 @@ export default function CookingGame({
 
   /* ---------- play screen ---------- */
   return (
-    <div className="flex h-full w-full flex-col gap-2 p-2 select-none">
+    <div className="flex h-[clamp(200px,58vh,400px)] flex-col gap-2 select-none">
       {/* top bar: timer + score */}
       <div className="flex items-center justify-between px-1 text-[clamp(12px,2vh,16px)] font-bold text-ink">
         <span>⏱ {timeLeft}s</span>
@@ -243,7 +237,7 @@ export default function CookingGame({
             onPointerUp={onPlateUp}
             className={`relative flex min-h-[clamp(70px,16vh,140px)] w-[clamp(120px,90%,240px)]
                         cursor-grab items-center justify-center rounded-full border-2 bg-cream/95
-                        shadow-inner active:cursor-grabbing ${shake ? 'animate-[shake_.38s]' : ''}`}
+                        shadow-inner active:cursor-grabbing ${shake ? 'animate-shake' : ''}`}
             style={{ borderColor: accent, touchAction: 'none' }}
           >
             {plate.length === 0 ? (
