@@ -15,16 +15,16 @@ export default function Message() {
                     min-[680px]:items-center min-[680px]:gap-[clamp(14px,2.4vw,28px)]">
       <div className="min-w-0">
         <h3 className="mb-2 text-[clamp(15px,3vh,24px)] font-extrabold text-hachi">
-          ▼▼ Your title here ▼▼
+          Happy Birthday!!!
         </h3>
         <p className={para}>
-          ▼▼ First paragraph — write your message here. ▼▼
+          Hope you have a wonderful day and a wonderful time!
         </p>
         <p className={para}>
-          ▼▼ Second paragraph. ▼▼
+          Though, sometimes, it might be hard but you can do it! I've you would become the best chef!!!
         </p>
         <p className={para}>
-          ▼▼ Third paragraph. ▼▼
+          From - BolBol
         </p>
         <p className="text-[clamp(12px,2vh,16px)] font-bold text-hachi">— ▼▼ sign-off ▼▼</p>
       </div>
