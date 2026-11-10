@@ -46,3 +46,8 @@ ehthumbs.db
 
 # Note: src/assets/<id>/originals/ (full-size PNG masters) IS tracked on purpose.
 # Add it here if the repo gets too heavy — but keep a backup elsewhere first.
+vault/
+
+# personal data: only the encrypted file is tracked
+src/Utils/data/*
+!src/Utils/data/Birthday.enc.json

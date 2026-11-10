@@ -4,12 +4,17 @@ One landscape birthday card per friend, each with its own art, message and
 activity. Static site, hosted free on GitHub Pages.
 
 ```
-https://<user>.github.io/Birthday-Card-Website/#/11        ← by person id
-https://<user>.github.io/Birthday-Card-Website/#/a    ← slug also works
+https://<user>.github.io/Birthday-Card-Website/#/<id>/<secret>
 ```
 
+Each person's data (name, dob, ...) ships **encrypted** in
+`src/Utils/data/Birthday.enc.json`. `<secret>` is that person's AES key, so the
+link is the only way to read it. Get every link from the git-ignored
+`src/Utils/data/links.txt`. A link without the right secret shows a blank
+`DefaultCard`.
+
 Hash routing is deliberate: GitHub Pages serves static files only, so `/11`
-would 404. `#/11` never reaches the server.
+would 404. The `#...` part never reaches the server.
 
 ---
 
@@ -19,8 +24,12 @@ would 404. `#/11` never reaches the server.
 ```bash
 node src/Utils/CSV-To-JSON.js
 ```
+Needs `CARD_SECRET=<long random string>` in `.env` (git-ignored). **Back it
+up**: lose it and every link already sent stops working. The CSV stays local
+(git-ignored); only `Birthday.enc.json` is committed.
+
 Ids are assigned in **submission order**, so appending a new person never
-renumbers anyone. Check the new id in `Birthday.json`.
+renumbers anyone. The new person's link is in `links.txt`.
 
 **2. Assets.** `src/assets/<id>/` — images plus an `index.js`:
 ```js
