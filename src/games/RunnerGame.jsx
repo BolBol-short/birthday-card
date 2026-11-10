@@ -18,6 +18,8 @@ export default function RunnerGame({
   obstacles = [],
   goodScore = 500,
   accent = 'var(--color-hachi)',
+  stage = 'linear-gradient(#BFEAFF, #FFF4D6)',
+  ground = 'repeating-linear-gradient(90deg, rgba(107,74,50,.45) 0 12px, transparent 12px 28px), #E9C98E',
   labels = {},
 }) {
   const t = {
@@ -31,6 +33,8 @@ export default function RunnerGame({
   }
   const Runner = art.runner
   const Chaser = art.chaser
+  const Win = art.win ?? Runner
+  const Lose = art.lose ?? Chaser
 
   const [phase, setPhase] = useState('intro')
   const [score, setScore] = useState(0)
@@ -142,9 +146,8 @@ export default function RunnerGame({
       <div
         ref={stageRef}
         onPointerDown={jump}
-        className="relative min-h-0 flex-1 touch-none overflow-hidden rounded-2xl border-2 select-none
-                   bg-linear-to-b from-[#BFEAFF] to-[#FFF4D6]"
-        style={{ borderColor: accent }}
+        className="relative min-h-0 flex-1 touch-none overflow-hidden rounded-2xl border-2 select-none"
+        style={{ borderColor: accent, background: stage }}
       >
         {dims && (
           <>
@@ -154,7 +157,7 @@ export default function RunnerGame({
               className="absolute inset-x-0 bottom-0"
               style={{
                 height: dims.ground,
-                background: 'repeating-linear-gradient(90deg, rgba(107,74,50,.45) 0 12px, transparent 12px 28px), #E9C98E',
+                background: ground,
                 backgroundSize: '28px 100%', // after `background`, which would reset it; 28px = pattern period, so the scroll loops seamlessly
               }}
             />
@@ -179,15 +182,15 @@ export default function RunnerGame({
           <div className={panel}>
             <div className={face}><Runner /></div>
             <p className={lead}>{t.intro}</p>
-            <p className="max-w-[34ch] text-[clamp(9px,1.6vh,13px)] font-medium text-ink/60">{t.hint}</p>
+            <p className="max-w-[34ch] text-[clamp(9px,1.6vh,13px)] font-medium text-ink/85">{t.hint}</p>
             <button className={btn} style={{ background: accent }} onClick={start}>{t.start}</button>
           </div>
         )}
 
         {phase === 'over' && (
           <div className={panel}>
-            <div className={face}>{won ? <Runner /> : <Chaser />}</div>
-            <p className="text-[clamp(15px,3.4vh,34px)] font-extrabold" style={{ color: accent }}>{score} run</p>
+            <div className={face}>{won ? <Win /> : <Lose />}</div>
+            <p className="text-[clamp(15px,3.4vh,34px)] font-extrabold" style={{ color: accent }}>{score} m</p>
             <p className={lead}>{won ? t.win : t.lose}</p>
             <button className={btn} style={{ background: accent }} onClick={start}>{t.retry}</button>
           </div>

@@ -51,3 +51,11 @@ vault/
 # personal data: only the encrypted file is tracked
 src/Utils/data/*
 !src/Utils/data/Birthday.enc.json
+
+# impeccable: review screenshots show decrypted names; question state is local
+.impeccable/review/
+.impeccable/questions/
+
+.impeccable/
+DESIGN.md
+PRODUCT.md
