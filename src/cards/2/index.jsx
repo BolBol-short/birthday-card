@@ -5,15 +5,13 @@ import Activity from './Activity'
 import Poster, { useCountUp } from './Poster'
 import art, { ACCENT, INK, PAPER } from '../../assets/2'
 
-/** No photo of her exists, and she loves sleep, so the frame says so. */
-function Asleep() {
+/** No photo of her exists, so the frame holds the default profile-picture silhouette. */
+function NoPhoto() {
   return (
     <div className="flex h-full flex-col items-center justify-center"
          style={{ background: 'radial-gradient(rgba(42,26,16,.2) 1px, transparent 1.4px) 0 0 / 1.8cqw 1.8cqw, #C7A56B' }}>
-      <p aria-hidden="true" className="mt-[6cqw] font-poster text-[24cqw] leading-none" style={{ color: INK }}>
-        Z<span className="text-[17cqw]">z</span><span className="text-[11cqw]">z</span>
-      </p>
-      <p className="mt-[1.6cqw] font-fell-sc text-[4.8cqw] leading-tight">No photo: subject was asleep</p>
+      <i aria-hidden="true" className="bi bi-person-fill mt-[3cqw] text-[42cqw] leading-none" style={{ color: INK }} />
+      <p className="font-fell-sc text-[4.8cqw] leading-tight">No photo: subject was asleep</p>
     </div>
   )
 }
@@ -34,7 +32,7 @@ export default function Card({ person }) {
       <Poster
         name={person?.name ?? 'Friend'}
         bounty={person?.age != null ? bounty.toLocaleString('en-US') : '???'}
-        photo={<Asleep />}
+        photo={<NoPhoto />}
         stamp
         className="h-[min(76dvh,680px)]"
       />
